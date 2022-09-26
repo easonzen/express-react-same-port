@@ -14,5 +14,5 @@ app.get("/username", (req, res) => {
 app.use("/", express.static(path.resolve(__dirname, "./client/build")));
 
 app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
+  console.log(`Listening on port: ${PORT}`);
 });

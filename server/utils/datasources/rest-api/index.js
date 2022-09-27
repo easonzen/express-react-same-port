@@ -7,7 +7,26 @@ class RESTAPI extends RESTDataSource {
   }
 
   async getUser(id) {
-    return this.get(`/user/${encodeURIComponent(id)}`);
+    const {
+      id: userId,
+      name,
+      age,
+      companyId,
+    } = await this.get(`/user/${encodeURIComponent(id)}`);
+
+    const { name: companyName } = await this.get(
+      `/company/${encodeURIComponent(companyId)}`
+    );
+
+    return {
+      id: userId,
+      name,
+      age,
+      company: {
+        id: companyId,
+        name: companyName,
+      },
+    };
   }
 }
 

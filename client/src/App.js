@@ -9,6 +9,10 @@ function App() {
         id
         name
         age
+        company {
+          id
+          name
+        }
       }
     }
   `;
@@ -41,6 +45,7 @@ function App() {
           <p>{data?.user.id || ""}</p>
           <p>{data?.user.name || ""}</p>
           <p>{data?.user.age || ""}</p>
+          <p>{data?.user.company.name || ""}</p>
         </a>
       </header>
     </div>

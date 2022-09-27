@@ -1,6 +1,5 @@
 const typeDefs = /* GraphQL */ `
   type Query {
-    users: [User]
     user(id: ID!): User
   }
 
@@ -8,6 +7,12 @@ const typeDefs = /* GraphQL */ `
     id: ID!
     name: String
     age: Int
+    company: Company
+  }
+
+  type Company {
+    id: ID!
+    name: String
   }
 `;
 

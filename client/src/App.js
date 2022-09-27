@@ -1,24 +1,29 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import { useQuery, gql } from "@apollo/client";
 
 function App() {
-  const [state, setState] = useState({
-    username: [],
-  });
-  const getUserName = useCallback(() => {
-    axios.get("/username").then((res) => {
-      setState({
-        ...state,
-        username: res.data.username,
-      });
-    });
-  }, [state]);
+  const GET_USER = gql`
+    query User($id: ID!) {
+      user(id: $id) {
+        id
+        name
+        age
+      }
+    }
+  `;
 
-  useEffect(() => {
-    getUserName();
-  }, [getUserName]);
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { id: "1" },
+  });
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <p>{JSON.stringify(error)}</p>;
+  }
 
   return (
     <div className="App">
@@ -33,7 +38,9 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {state.username}
+          <p>{data?.user.id || ""}</p>
+          <p>{data?.user.name || ""}</p>
+          <p>{data?.user.age || ""}</p>
         </a>
       </header>
     </div>
